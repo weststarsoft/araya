@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arayã Professional — Em breve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#EFEAE0;
+    --cream-2:#E7E1D3;
+    --green:#132318;
+    --green-2:#0D1A11;
+    --copper:#B15C2E;
+    --copper-2:#8C4520;
+    --gold:#D3A85C;
+    --gold-2:#9C7A3A;
+    --ink:#26241E;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  .wordmark{
+    font-family:'Big Shoulders Display', sans-serif;
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- PRELOADER ---------- */
+  #preloader{
+    position:fixed; inset:0; z-index:999;
+    background:radial-gradient(ellipse at center, var(--green) 0%, var(--green-2) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition:opacity 0.9s ease, visibility 0.9s ease;
+    cursor:pointer;
+    text-align:center;
+    padding:24px;
+  }
+  #preloader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  #preloader svg{ width:120px; height:120px; margin-bottom:28px; }
+  .pl-line{
+    stroke:var(--gold);
+    stroke-width:5;
+    stroke-linecap:round;
+    fill:none;
+    stroke-dasharray:70;
+    stroke-dashoffset:70;
+    animation:draw 1.1s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  #preloader h1{
+    font-family:'Big Shoulders Display', sans-serif;
+    color:var(--cream);
+    font-size:clamp(22px,4vw,32px);
+    letter-spacing:0.18em;
+    font-weight:700;
+    opacity:0;
+    animation:fadeUp 0.8s ease forwards;
+    animation-delay:1.3s;
+  }
+  #preloader p{
+    color:var(--gold);
+    font-size:clamp(12px,2vw,14px);
+    letter-spacing:0.08em;
+    margin-top:12px;
+    max-width:420px;
+    opacity:0;
+    animation:fadeUp 0.8s ease forwards;
+    animation-delay:1.6s;
+    font-weight:300;
+  }
+  .pl-hint{
+    position:absolute; bottom:28px;
+    color:var(--gold-2);
+    font-size:11px;
+    letter-spacing:0.12em;
+    opacity:0;
+    animation:fadeUp 0.8s ease forwards;
+    animation-delay:2.2s;
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- HERO / SECTION 1 ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:
+      radial-gradient(circle at 50% 30%, var(--cream-2) 0%, var(--cream) 60%);
+    position:relative;
+    padding:40px 24px;
+    text-align:center;
+  }
+  .reveal-wrap{
+    position:relative;
+    width:min(300px, 60vw);
+    height:min(300px, 60vw);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .mark-only{
+    width:56%; height:56%;
+    transition:opacity 0.6s ease, transform 0.6s ease;
+    animation:breathe 4.5s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.04); }
+  }
+  .logo-full{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:14px;
+    opacity:0;
+    transform:scale(0.85);
+    transition:opacity 0.6s ease 0.05s, transform 0.6s ease 0.05s;
+  }
+  .logo-full svg{ width:34%; }
+  .logo-full .name{
+    font-size:clamp(24px,4vw,34px);
+    color:var(--green);
+    font-weight:700;
+  }
+  .logo-full .sub{
+    font-size:clamp(9px,1.4vw,11px);
+    letter-spacing:0.42em;
+    color:var(--copper-2);
+    font-weight:500;
+    margin-top:-8px;
+  }
+  .reveal-wrap:hover .mark-only,
+  .reveal-wrap.active .mark-only{
+    opacity:0;
+    transform:scale(0.8) rotate(20deg);
+  }
+  .reveal-wrap:hover .logo-full,
+  .reveal-wrap.active .logo-full{
+    opacity:1;
+    transform:scale(1);
+  }
+  .tagline-hero{
+    margin-top:36px;
+    font-size:clamp(11px,1.6vw,13px);
+    letter-spacing:0.3em;
+    color:var(--copper-2);
+    font-weight:400;
+    opacity:0.55;
+    transition:opacity 0.6s ease, letter-spacing 0.6s ease;
+  }
+  .reveal-wrap:hover ~ .tagline-hero,
+  .reveal-wrap.active ~ .tagline-hero{
+    opacity:1;
+    color:var(--green);
+    letter-spacing:0.38em;
+  }
+  .hero-hint{
+    position:absolute; bottom:32px;
+    font-size:11px;
+    letter-spacing:0.15em;
+    color:var(--copper-2);
+    opacity:0.6;
+  }
+  .scroll-cue{
+    position:absolute; bottom:64px; left:50%; transform:translateX(-50%);
+    width:1px; height:34px; background:var(--copper-2); opacity:0.35;
+  }
+  .scroll-cue::after{
+    content:''; position:absolute; bottom:0; left:-3px;
+    width:7px; height:7px; border-radius:50%; background:var(--copper-2);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(-28px); opacity:0; }
+  }
+
+  /* ---------- SECTION 2 ---------- */
+  .about{
+    background:var(--green);
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
+      linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
+      linear-gradient(180deg, var(--green) 0%, var(--green-2) 100%);
+    background-size:64px 64px, 64px 64px, 100% 100%;
+    background-position:0 0, 32px 32px, 0 0;
+    padding:110px 24px;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+    position:relative;
+  }
+  .about .icon-small{
+    width:44px; height:44px;
+    margin-bottom:32px;
+    opacity:0.85;
+  }
+  .about h2{
+    font-family:'Big Shoulders Display', sans-serif;
+    color:var(--cream);
+    font-size:clamp(26px,4vw,40px);
+    font-weight:600;
+    margin-bottom:26px;
+  }
+  .about p.body{
+    max-width:640px;
+    color:#DCD6C7;
+    font-size:clamp(14px,1.8vw,16px);
+    line-height:1.85;
+    font-weight:300;
+    margin-bottom:34px;
+  }
+  .about .keywords{
+    font-size:clamp(11px,1.6vw,13px);
+    letter-spacing:0.28em;
+    color:var(--gold);
+    font-weight:500;
+  }
+  .about .divider{
+    width:52px; height:1px; background:var(--gold-2); opacity:0.5;
+    margin:38px 0;
+  }
+  .footer-note{
+    color:#8E9186;
+    font-size:11px;
+    letter-spacing:0.1em;
+    margin-top:60px;
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <svg viewBox="0 0 200 200">
+    <g id="pl-spikes"></g>
+  </svg>
+  <h1>EM CONSTRUÇÃO</h1>
+  <p>Em breve, uma marca com ancestralidade e pertencimento.</p>
+  <div class="pl-hint">TOQUE PARA CONTINUAR</div>
+</div>
+
+<section class="hero">
+  <div class="reveal-wrap" id="revealWrap">
+    <svg class="mark-only" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="copperGold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#C97A3F"/>
+          <stop offset="100%" stop-color="#8C4520"/>
+        </linearGradient>
+      </defs>
+      <g id="mark-spikes-1" fill="url(#copperGold)"></g>
+    </svg>
+
+    <div class="logo-full">
+      <svg viewBox="0 0 200 200">
+        <g id="mark-spikes-2" fill="var(--gold-2)"></g>
+      </svg>
+      <div class="name wordmark">ARAYÃ</div>
+      <div class="sub">PROFESSIONAL</div>
+    </div>
+  </div>
+
+  <p class="tagline-hero">ANCESTRALIDADE · PROPÓSITO · PERTENCIMENTO · CONEXÃO</p>
+
+  <div class="hero-hint">passe o mouse ou toque no símbolo</div>
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="about">
+  <svg class="icon-small" viewBox="0 0 200 200">
+    <g id="mark-spikes-3" fill="var(--gold)"></g>
+  </svg>
+  <h2>Símbolo de pertencimento</h2>
+  <p class="body">
+    Inspirado nos grafismos indígenas, o símbolo representa conexão e respeito às origens.
+    A composição reforça uma marca com propósito, presença e compromisso, conectando a
+    identidade visual às raízes, à história e aos propósitos da marca Arayã.
+  </p>
+  <div class="keywords">ANCESTRALIDADE · PROPÓSITO · PERTENCIMENTO · CONEXÃO</div>
+  <div class="divider"></div>
+  <div class="footer-note">ARAYÃ PROFESSIONAL — EM BREVE</div>
+</section>
+
+<script>
+function buildSpikes(container, opts){
+  opts = opts || {};
+  var cx = 100, cy = 100;
+  var innerR = opts.innerR || 30;
+  var outerR = opts.outerR || 85;
+  var halfWidth = opts.halfWidth || 15;
+  var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  for(var i=0;i<8;i++){
+    var angle = i * 45;
+    var poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    var tipX = cx, tipY = cy - outerR;
+    var baseLX = cx - halfWidth, baseLY = cy - innerR;
+    var baseRX = cx + halfWidth, baseRY = cy - innerR;
+    poly.setAttribute('points', tipX+','+tipY+' '+baseLX+','+baseLY+' '+baseRX+','+baseRY);
+    poly.setAttribute('transform','rotate('+angle+' '+cx+' '+cy+')');
+    g.appendChild(poly);
+  }
+  container.appendChild(g);
+}
+
+buildSpikes(document.getElementById('mark-spikes-1'));
+buildSpikes(document.getElementById('mark-spikes-2'));
+buildSpikes(document.getElementById('mark-spikes-3'));
+
+var plG = document.getElementById('pl-spikes');
+for(var i=0;i<8;i++){
+  var angle = i * 45;
+  var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1','100'); line.setAttribute('y1','70');
+  line.setAttribute('x2','100'); line.setAttribute('y2','18');
+  line.setAttribute('class','pl-line');
+  line.setAttribute('transform','rotate('+angle+' 100 100)');
+  line.style.animationDelay = (i*0.07)+'s';
+  plG.appendChild(line);
+}
+
+var preloader = document.getElementById('preloader');
+function hidePreloader(){
+  preloader.classList.add('hide');
+  setTimeout(function(){ preloader.style.display='none'; }, 950);
+}
+setTimeout(hidePreloader, 3400);
+preloader.addEventListener('click', hidePreloader);
+
+var revealWrap = document.getElementById('revealWrap');
+revealWrap.addEventListener('click', function(){
+  revealWrap.classList.toggle('active');
+});
+</script>
+
+</body>
+</html>
