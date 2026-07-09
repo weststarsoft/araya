@@ -43,17 +43,20 @@
     padding:24px;
   }
   #preloader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
-  #preloader svg{ width:120px; height:120px; margin-bottom:28px; }
-  .pl-line{
-    stroke:var(--gold);
-    stroke-width:5;
-    stroke-linecap:round;
-    fill:none;
-    stroke-dasharray:70;
-    stroke-dashoffset:70;
-    animation:draw 1.1s ease forwards;
+  #preloader img{
+    width:120px; height:120px; margin-bottom:28px;
+    object-fit:contain;
+    opacity:0;
+    transform:scale(0.6) rotate(-25deg);
+    animation:markIn 1s cubic-bezier(.2,.8,.2,1) forwards, spin 6s linear infinite 1s;
   }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes markIn{
+    to{ opacity:1; transform:scale(1) rotate(0deg); }
+  }
+  @keyframes spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
   #preloader h1{
     font-family:'Big Shoulders Display', sans-serif;
     color:var(--cream);
@@ -108,6 +111,7 @@
   }
   .mark-only{
     width:56%; height:56%;
+    object-fit:contain;
     transition:opacity 0.6s ease, transform 0.6s ease;
     animation:breathe 4.5s ease-in-out infinite;
   }
@@ -123,7 +127,7 @@
     transform:scale(0.85);
     transition:opacity 0.6s ease 0.05s, transform 0.6s ease 0.05s;
   }
-  .logo-full svg{ width:34%; }
+  .logo-full img{ width:78%; object-fit:contain; }
   .logo-full .name{
     font-size:clamp(24px,4vw,34px);
     color:var(--green);
@@ -198,6 +202,7 @@
   }
   .about .icon-small{
     width:44px; height:44px;
+    object-fit:contain;
     margin-bottom:32px;
     opacity:0.85;
   }
@@ -237,9 +242,7 @@
 <body>
 
 <div id="preloader">
-  <svg viewBox="0 0 200 200">
-    <g id="pl-spikes"></g>
-  </svg>
+  <img src="image/simbolo-dourado.png" alt="Símbolo Arayã">
   <h1>EM CONSTRUÇÃO</h1>
   <p>Em breve, uma marca com ancestralidade e pertencimento.</p>
   <div class="pl-hint">TOQUE PARA CONTINUAR</div>
@@ -247,22 +250,10 @@
 
 <section class="hero">
   <div class="reveal-wrap" id="revealWrap">
-    <svg class="mark-only" viewBox="0 0 200 200">
-      <defs>
-        <linearGradient id="copperGold" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#C97A3F"/>
-          <stop offset="100%" stop-color="#8C4520"/>
-        </linearGradient>
-      </defs>
-      <g id="mark-spikes-1" fill="url(#copperGold)"></g>
-    </svg>
+    <img class="mark-only" src="image/simbolo.png" alt="Símbolo Arayã">
 
     <div class="logo-full">
-      <svg viewBox="0 0 200 200">
-        <g id="mark-spikes-2" fill="var(--gold-2)"></g>
-      </svg>
-      <div class="name wordmark">ARAYÃ</div>
-      <div class="sub">PROFESSIONAL</div>
+      <img src="image/logo-completo.png" alt="Arayã Professional">
     </div>
   </div>
 
@@ -273,9 +264,7 @@
 </section>
 
 <section class="about">
-  <svg class="icon-small" viewBox="0 0 200 200">
-    <g id="mark-spikes-3" fill="var(--gold)"></g>
-  </svg>
+  <img class="icon-small" src="image/simbolo-dourado.png" alt="Símbolo Arayã">
   <h2>Símbolo de pertencimento</h2>
   <p class="body">
     Inspirado nos grafismos indígenas, o símbolo representa conexão e respeito às origens.
@@ -288,42 +277,6 @@
 </section>
 
 <script>
-function buildSpikes(container, opts){
-  opts = opts || {};
-  var cx = 100, cy = 100;
-  var innerR = opts.innerR || 30;
-  var outerR = opts.outerR || 85;
-  var halfWidth = opts.halfWidth || 15;
-  var g = document.createElementNS('http://www.w3.org/2000/svg','g');
-  for(var i=0;i<8;i++){
-    var angle = i * 45;
-    var poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-    var tipX = cx, tipY = cy - outerR;
-    var baseLX = cx - halfWidth, baseLY = cy - innerR;
-    var baseRX = cx + halfWidth, baseRY = cy - innerR;
-    poly.setAttribute('points', tipX+','+tipY+' '+baseLX+','+baseLY+' '+baseRX+','+baseRY);
-    poly.setAttribute('transform','rotate('+angle+' '+cx+' '+cy+')');
-    g.appendChild(poly);
-  }
-  container.appendChild(g);
-}
-
-buildSpikes(document.getElementById('mark-spikes-1'));
-buildSpikes(document.getElementById('mark-spikes-2'));
-buildSpikes(document.getElementById('mark-spikes-3'));
-
-var plG = document.getElementById('pl-spikes');
-for(var i=0;i<8;i++){
-  var angle = i * 45;
-  var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1','100'); line.setAttribute('y1','70');
-  line.setAttribute('x2','100'); line.setAttribute('y2','18');
-  line.setAttribute('class','pl-line');
-  line.setAttribute('transform','rotate('+angle+' 100 100)');
-  line.style.animationDelay = (i*0.07)+'s';
-  plG.appendChild(line);
-}
-
 var preloader = document.getElementById('preloader');
 function hidePreloader(){
   preloader.classList.add('hide');
