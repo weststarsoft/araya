@@ -104,8 +104,8 @@
   }
   .reveal-wrap{
     position:relative;
-    width:min(300px, 60vw);
-    height:min(300px, 60vw);
+    width:min(420px, 78vw);
+    height:min(420px, 78vw);
     display:flex; align-items:center; justify-content:center;
     cursor:pointer;
   }
@@ -140,12 +140,10 @@
     font-weight:500;
     margin-top:-8px;
   }
-  .reveal-wrap:hover .mark-only,
   .reveal-wrap.active .mark-only{
     opacity:0;
     transform:scale(0.8) rotate(20deg);
   }
-  .reveal-wrap:hover .logo-full,
   .reveal-wrap.active .logo-full{
     opacity:1;
     transform:scale(1);
@@ -159,7 +157,6 @@
     opacity:0.55;
     transition:opacity 0.6s ease, letter-spacing 0.6s ease;
   }
-  .reveal-wrap:hover ~ .tagline-hero,
   .reveal-wrap.active ~ .tagline-hero{
     opacity:1;
     color:var(--green);
@@ -201,10 +198,10 @@
     position:relative;
   }
   .about .icon-small{
-    width:44px; height:44px;
+    width:min(160px, 30vw); height:min(160px, 30vw);
     object-fit:contain;
-    margin-bottom:32px;
-    opacity:0.85;
+    margin-bottom:36px;
+    opacity:0.9;
   }
   .about h2{
     font-family:'Big Shoulders Display', sans-serif;
@@ -286,7 +283,19 @@ setTimeout(hidePreloader, 3400);
 preloader.addEventListener('click', hidePreloader);
 
 var revealWrap = document.getElementById('revealWrap');
-revealWrap.addEventListener('click', function(){
+var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if(hasHover){
+  revealWrap.addEventListener('mouseenter', function(){
+    revealWrap.classList.add('active');
+  });
+  revealWrap.addEventListener('mouseleave', function(){
+    revealWrap.classList.remove('active');
+  });
+}
+
+revealWrap.addEventListener('click', function(e){
+  e.preventDefault();
   revealWrap.classList.toggle('active');
 });
 </script>
